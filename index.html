@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-  <title>Registro</title>
+  <title>Session Log</title>
   
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -12,11 +12,10 @@
   <link rel="apple-touch-icon" href="icono.png">
   
   <style>
-    /* TEMA POR DEFECTO (Oscuro Moderno) */
     body {
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-      background-color: #121212;
-      color: #ffffff;
+      background-color: #080808;
+      color: #f0f0f0;
       margin: 0;
       padding: 24px 16px;
       display: flex;
@@ -24,133 +23,177 @@
       align-items: center;
       min-height: 100vh;
       box-sizing: border-box;
-      transition: all 0.3s ease;
-    }
-    h1 { font-size: 1.4rem; margin-bottom: 16px; color: #4CAF50; display: none; }
-    
-    .top-bar {
-      display: flex; width: 100%; max-width: 320px; margin-bottom: 20px; 
-      justify-content: space-between; align-items: center;
-    }
-    .user-profile {
-      font-size: 1.2rem; font-weight: bold; color: #4CAF50;
-      background: #1e1e1e; padding: 10px 16px; border-radius: 12px;
-      border: 1px solid #333; cursor: pointer; flex-grow: 1; margin-right: 10px;
-    }
-    .btn-icon {
-      background: #333; color: white; border: none; border-radius: 12px;
-      padding: 10px 16px; font-size: 1.2rem; cursor: pointer; font-weight: bold;
     }
 
-    .info-panel {
-      display: flex; width: 100%; max-width: 320px; gap: 10px; margin-bottom: 20px;
+    .header-box {
+      width: 100%;
+      max-width: 320px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-bottom: 20px;
     }
-    .total-box, .rango-box {
-      background-color: #1e1e1e; flex: 1; padding: 12px;
-      border-radius: 16px; text-align: center; font-size: 0.9rem; 
-      border: 1px solid #2a2a2a; display: flex; flex-direction: column; justify-content: center;
+    .profile-tag {
+      font-size: 1.1rem;
+      font-weight: 800;
+      letter-spacing: 1px;
+      color: #fff;
+      background: #141414;
+      padding: 10px 20px;
+      border-radius: 10px;
+      border: 1px solid #222;
+      cursor: pointer;
+      text-align: center;
+      width: 100%;
     }
-    .total-box span, .rango-box span { 
-      font-size: 1.3rem; font-weight: bold; color: #4CAF50; margin-top: 4px;
-    }
-    .rango-box span { font-size: 1.1rem; }
 
-    .sala-container {
-      width: 100%; max-width: 320px; height: 220px; background-color: #0d0d0d;
-      border-radius: 16px; border: 2px dashed #333; display: flex;
-      justify-content: center; align-items: center; margin-bottom: 24px; overflow: hidden;
+    .stats-container {
+      display: flex;
+      width: 100%;
+      max-width: 320px;
+      gap: 10px;
+      margin-bottom: 20px;
     }
-    .sala {
-      background: linear-gradient(to bottom, #2a2a2a, #1a1a1a); border: 2px solid #555;
-      border-radius: 12px; display: flex; justify-content: center; align-items: flex-end;
-      padding: 10px; transition: width 0.6s ease, height 0.6s ease; width: 100px; height: 100px;
+    .stat-card {
+      background: #121212;
+      flex: 1;
+      padding: 14px;
+      border-radius: 14px;
+      border: 1px solid #222;
+      text-align: center;
     }
-    .frasco {
-      width: 100%; height: 100%; border: 3px solid rgba(255,255,255,0.4);
-      border-top: 1px solid rgba(255,255,255,0.1); border-bottom-left-radius: 15px;
-      border-bottom-right-radius: 15px; background: rgba(255,255,255,0.05);
-      display: flex; flex-wrap: wrap-reverse; align-content: flex-start; justify-content: center;
-      padding: 5px; overflow: hidden; box-shadow: inset 0 0 15px rgba(255,255,255,0.1);
+    .stat-card small { color: #666; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px; }
+    .stat-card div { font-size: 1.4rem; font-weight: 900; color: #fff; margin-top: 4px; }
+
+    /* Grilla fija de fotos del código */
+    .visual-grid-container {
+      width: 100%;
+      max-width: 320px;
+      height: 180px;
+      background: #0d0d0d;
+      border-radius: 14px;
+      border: 1px solid #222;
+      padding: 10px;
+      box-sizing: border-box;
+      margin-bottom: 20px;
+      overflow-y: auto;
+      display: flex;
+      flex-wrap: wrap;
+      align-content: flex-start;
+      gap: 6px;
     }
-    .cogollo { font-size: 20px; margin: 1px; animation: pop 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
-    @keyframes pop { 0% { transform: scale(0) translateY(-20px); opacity: 0; } 100% { transform: scale(1) translateY(0); opacity: 1; } }
+    .grid-foto {
+      width: 45px;
+      height: 45px;
+      border-radius: 8px;
+      object-fit: cover;
+      border: 1px solid #333;
+      animation: fadeIn 0.3s ease;
+    }
+    .empty-grid-text {
+      color: #444;
+      font-size: 0.85rem;
+      margin: auto;
+      text-align: center;
+    }
+    @keyframes fadeIn {
+      0% { opacity: 0; transform: scale(0.8); }
+      100% { opacity: 1; transform: scale(1); }
+    }
 
     .main-btn {
-      background: linear-gradient(135deg, #4CAF50, #2E7D32); color: white; border: none;
-      width: 100%; max-width: 320px; padding: 20px; font-size: 1.6rem; font-weight: bold;
-      border-radius: 20px; cursor: pointer; box-shadow: 0 6px 20px rgba(76,175,80,0.3); margin-bottom: 20px;
+      background: #fff;
+      color: #000;
+      border: none;
+      width: 100%;
+      max-width: 320px;
+      padding: 18px;
+      font-size: 1.4rem;
+      font-weight: 900;
+      border-radius: 14px;
+      cursor: pointer;
+      margin-bottom: 16px;
+      letter-spacing: 1px;
+      transition: transform 0.1s, background 0.2s;
     }
-    .main-btn:active { transform: scale(0.96); }
+    .main-btn:active { transform: scale(0.97); background: #ddd; }
 
-    .grid-options { display: flex; gap: 10px; flex-wrap: wrap; justify-content: center; max-width: 320px; margin-bottom: 24px; }
+    .grid-options {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      justify-content: center;
+      max-width: 320px;
+      margin-bottom: 24px;
+    }
     .option-btn {
-      background-color: #1e1e1e; color: #4CAF50; border: 1px solid #333; padding: 10px 16px;
-      font-size: 0.9rem; font-weight: 600; border-radius: 12px; cursor: pointer;
+      background-color: #121212;
+      color: #ccc;
+      border: 1px solid #222;
+      padding: 10px 14px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      border-radius: 10px;
+      cursor: pointer;
     }
+    .option-btn:active { background: #222; }
 
-    .list-section { width: 100%; max-width: 320px; margin-bottom: 24px; }
-    .list-header {
-      display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #2a2a2a;
-      padding-bottom: 8px; margin-bottom: 12px; font-size: 0.95rem; color: #aaa;
+    .history-section { width: 100%; max-width: 320px; }
+    .history-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid #1a1a1a;
+      padding-bottom: 8px;
+      margin-bottom: 10px;
+      font-size: 0.85rem;
+      color: #666;
+      text-transform: uppercase;
+      letter-spacing: 1px;
     }
-    .data-list { list-style: none; padding: 0; margin: 0; max-height: 200px; overflow-y: auto; }
-    .data-item { display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid #1a1a1a; font-size: 0.95rem; }
-    .btn-clear { background: none; border: none; color: #ff5252; font-size: 0.8rem; cursor: pointer; }
-
-    /* =========================================
-       TEMA Y2K / BLING ERA / CAMARA VIEJA
-       ========================================= */
-    body.y2k-theme { background-color: #c0c0c0; color: #000; font-family: "Courier New", Courier, monospace; }
-    body.y2k-theme .user-profile, body.y2k-theme .btn-icon {
-      background: #dfdfdf; color: #000080; border: 2px inset #fff; border-radius: 0; font-weight: bold; font-family: "Courier New", Courier, monospace;
+    .history-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      max-height: 140px;
+      overflow-y: auto;
     }
-    body.y2k-theme .total-box, body.y2k-theme .rango-box {
-      background: #fff; color: #000; border: 3px ridge #fff; border-radius: 0; box-shadow: 4px 4px 0px #000;
+    .history-item {
+      display: flex;
+      justify-content: space-between;
+      padding: 8px 0;
+      border-bottom: 1px solid #141414;
+      font-size: 0.9rem;
     }
-    body.y2k-theme .total-box span { color: #ff00ff; }
-    body.y2k-theme .rango-box span { color: #000080; }
-    body.y2k-theme .sala-container {
-      background-color: #000; border: 4px ridge #888; border-radius: 0; box-shadow: inset 0 0 10px #000;
+    .btn-clear {
+      background: none; border: none; color: #ff3b30;
+      font-size: 0.75rem; cursor: pointer; font-weight: 600;
     }
-    body.y2k-theme .sala { border: 2px solid #00ff00; border-radius: 0; background: #111; }
-    body.y2k-theme .frasco { border: 2px solid #00ff00; border-radius: 0; box-shadow: none; }
-    body.y2k-theme .main-btn {
-      background: linear-gradient(to bottom, #e6e6e6, #999999); color: #000;
-      border: 4px outset #fff; border-radius: 0; box-shadow: 5px 5px 0px #000; font-family: "Impact", sans-serif; letter-spacing: 2px;
-    }
-    body.y2k-theme .main-btn:active { border: 4px inset #fff; transform: none; box-shadow: 2px 2px 0px #000; }
-    body.y2k-theme .option-btn {
-      background: #dfdfdf; color: #000; border: 2px outset #fff; border-radius: 0; font-weight: bold; font-family: "Courier New", Courier, monospace;
-    }
-    body.y2k-theme .option-btn:active { border: 2px inset #fff; }
-    body.y2k-theme .list-header { color: #000; border-bottom: 2px dashed #888; }
-    body.y2k-theme .data-item { border-bottom: 1px dashed #888; }
-    body.y2k-theme .data-item span { color: #555 !important; }
   </style>
 </head>
 <body>
 
-  <div class="top-bar">
-    <div class="user-profile" onclick="cambiarNombre()" id="display-nombre">👤 Pedro</div>
-    <button class="btn-icon" onclick="toggleY2K()" title="Cambiar Tema">💿</button>
+  <div class="header-box">
+    <div class="profile-tag" onclick="cambiarNombre()" id="display-nombre">PEDRO</div>
   </div>
 
-  <div class="info-panel">
-    <div class="total-box">
-      Total <br><span id="total-grams">0</span> g
+  <div class="stats-container">
+    <div class="stat-card">
+      <small>Total Gramos</small>
+      <div id="total-grams">0</div>
     </div>
-    <div class="rango-box">
-      Rango <br><span id="rango-actual">🌱 Iniciado</span>
-    </div>
-  </div>
-
-  <div class="sala-container">
-    <div class="sala" id="sala">
-      <div class="frasco" id="frasco"></div>
+    <div class="stat-card">
+      <small>Rango</small>
+      <div id="rango-actual" style="font-size: 1rem; margin-top: 6px;">Iniciado</div>
     </div>
   </div>
 
-  <button class="main-btn" onclick="registrar(1)">+ 1 g</button>
+  <!-- Grilla visual de tus fotos oficiales del repositorio -->
+  <div class="visual-grid-container" id="grid-fotos">
+    <div class="empty-grid-text">Cargá fotos en GitHub para verlas acá</div>
+  </div>
+
+  <button class="main-btn" onclick="registrar(1)">+ 1G</button>
 
   <div class="grid-options">
     <button class="option-btn" onclick="registrar(0.5)">+ 0.5g</button>
@@ -160,12 +203,12 @@
     <button class="option-btn" onclick="registrar(5)">+ 5g</button>
   </div>
 
-  <div class="list-section">
-    <div class="list-header">
-      <span>Historial</span>
+  <div class="history-section">
+    <div class="history-header">
+      <span>Registro</span>
       <button class="btn-clear" onclick="limpiarHistorial()">Borrar todo</button>
     </div>
-    <ul class="data-list" id="history-list"></ul>
+    <ul class="history-list" id="history-list"></ul>
   </div>
 
   <script>
@@ -174,71 +217,67 @@
     }
 
     let registros = JSON.parse(localStorage.getItem('registros_gramos')) || [];
-    let miNombre = localStorage.getItem('mi_nombre') || 'Pedro';
-    let y2kActivado = localStorage.getItem('y2k_theme') === 'true';
+    let miNombre = localStorage.getItem('mi_nombre') || 'PEDRO';
 
-    document.getElementById('display-nombre').textContent = '👤 ' + miNombre;
-    if (y2kActivado) document.body.classList.add('y2k-theme');
+    document.getElementById('display-nombre').textContent = miNombre;
 
-    function toggleY2K() {
-      document.body.classList.toggle('y2k-theme');
-      localStorage.setItem('y2k_theme', document.body.classList.contains('y2k-theme'));
-    }
+    // FOTOS FIJAS DEL REPOSITORIO (Modificá los nombres según tus archivos subidos)
+    const misFotos = [
+      "cogollo1.jpg",
+      "cogollo2.jpg"
+    ];
 
     function cambiarNombre() {
-      const nuevoNombre = prompt('¿Qué nombre querés usar?', miNombre);
-      if (nuevoNombre && nuevoNombre.trim() !== '') {
-        miNombre = nuevoNombre.trim();
+      const nuevo = prompt('Nuevo alias:', miNombre);
+      if (nuevo && nuevo.trim() !== '') {
+        miNombre = nuevo.trim().toUpperCase();
         localStorage.setItem('mi_nombre', miNombre);
-        document.getElementById('display-nombre').textContent = '👤 ' + miNombre;
+        document.getElementById('display-nombre').textContent = miNombre;
       }
     }
 
     function obtenerTitulo(gramos) {
-      if (gramos >= 100) return '👑 Bling King';
-      if (gramos >= 50) return '💎 Old Brother';
-      if (gramos >= 20) return '🔥 OG';
-      if (gramos >= 5) return '🛠️ Constructor';
-      return '🌱 Iniciado';
+      if (gramos >= 100) return 'BOSS';
+      if (gramos >= 50) return 'VETERANO';
+      if (gramos >= 20) return 'PESADO';
+      if (gramos >= 5) return 'ACTIVO';
+      return 'INICIADO';
     }
 
     function actualizarUI() {
       const historyList = document.getElementById('history-list');
       const totalSpan = document.getElementById('total-grams');
       const rangoSpan = document.getElementById('rango-actual');
-      const frasco = document.getElementById('frasco');
-      const sala = document.getElementById('sala');
+      const gridContainer = document.getElementById('grid-fotos');
       
       historyList.innerHTML = '';
       let total = 0;
 
-      // Filtrar registros en caso de que hayan quedado de amigos anteriores
       registros.forEach((reg) => {
         total += reg.gramos;
         const li = document.createElement('li');
-        li.className = 'data-item';
-        li.innerHTML = `<span style="color:#aaa">${reg.fecha}</span> <strong>+${reg.gramos} g</strong>`;
+        li.className = 'history-item';
+        li.innerHTML = `<span style="color:#666">${reg.fecha}</span> <strong style="color:#fff">+${reg.gramos}G</strong>`;
         historyList.appendChild(li);
       });
 
       totalSpan.textContent = total.toFixed(1);
       rangoSpan.textContent = obtenerTitulo(total);
 
-      let nuevaAnchura = 100 + (total * 6);
-      let nuevaAltura = 100 + (total * 5);
-      if (nuevaAnchura > 280) nuevaAnchura = 280;
-      if (nuevaAltura > 200) nuevaAltura = 200;
+      // Renderizar las fotos del repositorio según los gramos
+      gridContainer.innerHTML = '';
+      let cantidadFotos = Math.floor(total);
 
-      sala.style.width = nuevaAnchura + 'px';
-      sala.style.height = nuevaAltura + 'px';
-
-      frasco.innerHTML = '';
-      let cantidadCogollos = Math.floor(total);
-      for (let i = 0; i < cantidadCogollos; i++) {
-        const cogollo = document.createElement('span');
-        cogollo.className = 'cogollo';
-        cogollo.textContent = '🥦';
-        frasco.appendChild(cogollo);
+      if (misFotos.length === 0) {
+        gridContainer.innerHTML = '<div class="empty-grid-text">Agregá fotos en el código</div>';
+      } else if (cantidadFotos > 0) {
+        for (let i = 0; i < cantidadFotos; i++) {
+          let fotoSrc = misFotos[i % misFotos.length];
+          const img = document.createElement('img');
+          img.className = 'grid-foto';
+          img.src = fotoSrc;
+          gridContainer.appendChild(img);
+        }
       }
     }
 
@@ -253,7 +292,7 @@
     }
 
     function limpiarHistorial() {
-      if (confirm('¿Seguro que querés borrar TODO tu historial?')) {
+      if (confirm('¿Borrar todo el historial?')) {
         registros = [];
         localStorage.removeItem('registros_gramos');
         actualizarUI();
@@ -264,3 +303,4 @@
   </script>
 </body>
 </html>
+
