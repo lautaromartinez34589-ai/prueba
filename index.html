@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <title>Registro</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background-color: #121212;
+      color: #ffffff;
+      margin: 0;
+      padding: 24px 16px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    h1 { font-size: 1.4rem; margin-bottom: 16px; color: #4CAF50; }
+    
+    .total-box {
+      background-color: #1e1e1e;
+      width: 100%;
+      max-width: 320px;
+      padding: 12px;
+      border-radius: 16px;
+      text-align: center;
+      margin-bottom: 20px;
+      font-size: 1.1rem;
+      border: 1px solid #2a2a2a;
+    }
+    .total-box span { font-size: 1.5rem; font-weight: bold; color: #4CAF50; }
+
+    /* --- NUEVA SECCIÓN VISUAL --- */
+    .sala-container {
+      width: 100%;
+      max-width: 320px;
+      height: 220px;
+      background-color: #0d0d0d;
+      border-radius: 16px;
+      border: 2px dashed #333;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-bottom: 24px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .sala {
+      background: linear-gradient(to bottom, #2a2a2a, #1a1a1a);
+      border: 2px solid #555;
+      border-radius: 12px;
+      display: flex;
+      justify-content: center;
+      align-items: flex-end;
+      padding: 10px;
+      transition: width 0.6s ease, height 0.6s ease;
+      /* Tamaños base */
+      width: 100px; 
+      height: 100px;
+    }
+
+    .frasco {
+      width: 100%;
+      height: 100%;
+      border: 3px solid rgba(255, 255, 255, 0.4);
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      border-bottom-left-radius: 15px;
+      border-bottom-right-radius: 15px;
+      background: rgba(255, 255, 255, 0.05);
+      display: flex;
+      flex-wrap: wrap-reverse; /* Para que se apilen desde abajo */
+      align-content: flex-start;
+      justify-content: center;
+      padding: 5px;
+      overflow: hidden;
+      box-shadow: inset 0 0 15px rgba(255,255,255,0.1);
+    }
+
+    .cogollo {
+      font-size: 20px;
+      margin: 1px;
+      animation: pop 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    @keyframes pop {
+      0% { transform: scale(0) translateY(-20px); opacity: 0; }
+      100% { transform: scale(1) translateY(0); opacity: 1; }
+    }
+    /* ---------------------------- */
+
+    .main-btn {
+      background: linear-gradient(135deg, #4CAF50, #2E7D32);
+      color: white;
+      border: none;
+      width: 100%;
+      max-width: 320px;
+      padding: 20px;
+      font-size: 1.6rem;
+      font-weight: bold;
+      border-radius: 20px;
+      cursor: pointer;
+      box-shadow: 0 6px 20px rgba(76, 175, 80, 0.3);
+      margin-bottom: 20px;
+      transition: transform 0.1s;
+    }
+    .main-btn:active { transform: scale(0.96); }
+
+    .subtitle { font-size: 0.85rem; color: #888; margin-bottom: 10px; }
+
+    .grid-options {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      justify-content: center;
+      max-width: 320px;
+      margin-bottom: 24px;
+    }
+    .option-btn {
+      background-color: #1e1e1e;
+      color: #4CAF50;
+      border: 1px solid #333;
+      padding: 10px 16px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      border-radius: 12px;
+      cursor: pointer;
+    }
+    .option-btn:active { background-color: #333; }
+
+    .history-section { width: 100%; max-width: 320px; }
+    .history-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid #2a2a2a;
+      padding-bottom: 8px;
+      margin-bottom: 12px;
+      font-size: 0.95rem;
+      color: #aaa;
+    }
+    .history-list {
+      list-style: none;
+      padding: 0; margin: 0;
+      max-height: 150px;
+      overflow-y: auto;
+    }
+    .history-item {
+      display: flex;
+      justify-content: space-between;
+      padding: 8px 0;
+      border-bottom: 1px solid #1a1a1a;
+      font-size: 0.9rem;
+    }
+    .btn-clear {
+      background: none; border: none;
+      color: #ff5252; font-size: 0.8rem; cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Anotador</h1>
+
+  <div class="total-box">
+    Total acumulado: <br><span id="total-grams">0</span> g
+  </div>
+
+  <!-- Contenedor de la Sala y el Frasco -->
+  <div class="sala-container">
+    <div class="sala" id="sala">
+      <div class="frasco" id="frasco">
+        <!-- Los cogollos se agregan acá por código -->
+      </div>
+    </div>
+  </div>
+
+  <button class="main-btn" onclick="registrar(1)">+ 1 g</button>
+
+  <div class="subtitle">Otras cantidades:</div>
+  <div class="grid-options">
+    <button class="option-btn" onclick="registrar(0.5)">+ 0.5g</button>
+    <button class="option-btn" onclick="registrar(2)">+ 2g</button>
+    <button class="option-btn" onclick="registrar(3)">+ 3g</button>
+    <button class="option-btn" onclick="registrar(4)">+ 4g</button>
+    <button class="option-btn" onclick="registrar(5)">+ 5g</button>
+  </div>
+
+  <div class="history-section">
+    <div class="history-header">
+      <span>Historial</span>
+      <button class="btn-clear" onclick="limpiarHistorial()">Borrar todo</button>
+    </div>
+    <ul class="history-list" id="history-list"></ul>
+  </div>
+
+  <script>
+    let registros = JSON.parse(localStorage.getItem('registros_gramos')) || [];
+
+    function actualizarUI() {
+      const historyList = document.getElementById('history-list');
+      const totalSpan = document.getElementById('total-grams');
+      const frasco = document.getElementById('frasco');
+      const sala = document.getElementById('sala');
+      
+      historyList.innerHTML = '';
+      
+      let total = 0;
+      registros.forEach((reg) => {
+        total += reg.gramos;
+        const li = document.createElement('li');
+        li.className = 'history-item';
+        li.innerHTML = `<span style="color:#aaa">${reg.fecha}</span> <strong>+${reg.gramos} g</strong>`;
+        historyList.appendChild(li);
+      });
+
+      totalSpan.textContent = total.toFixed(1);
+
+      // 1. Agrandar la sala en base al total
+      // Empieza en 100x100. Sumamos 6px por cada gramo.
+      let nuevaAnchura = 100 + (total * 6);
+      let nuevaAltura = 100 + (total * 5);
+      
+      // Ponemos un límite para que no se salga del contenedor de la pantalla
+      if (nuevaAnchura > 280) nuevaAnchura = 280;
+      if (nuevaAltura > 200) nuevaAltura = 200;
+
+      sala.style.width = nuevaAnchura + 'px';
+      sala.style.height = nuevaAltura + 'px';
+
+      // 2. Llenar el frasco con cogollos (1 🥦 por cada gramo entero)
+      frasco.innerHTML = '';
+      let cantidadCogollos = Math.floor(total);
+      
+      // Si sumaste 0.5 pero todavía no llega a 1, no mostramos nada entero, 
+      // pero a partir de 1 empieza a sumar de a 1 emoji.
+      for (let i = 0; i < cantidadCogollos; i++) {
+        const cogollo = document.createElement('span');
+        cogollo.className = 'cogollo';
+        cogollo.textContent = '🥦';
+        frasco.appendChild(cogollo);
+      }
+    }
+
+    function registrar(gramos) {
+      const ahora = new Date();
+      const fechaStr = ahora.toLocaleDateString([], {day: '2-digit', month: '2-digit'}) + ' ' + 
+                       ahora.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+      
+      registros.unshift({ fecha: fechaStr, gramos: gramos });
+      localStorage.setItem('registros_gramos', JSON.stringify(registros));
+      actualizarUI();
+    }
+
+    function limpiarHistorial() {
+      if (confirm('¿Seguro que querés borrar el historial completo? Se vaciará el frasco.')) {
+        registros = [];
+        localStorage.removeItem('registros_gramos');
+        actualizarUI();
+      }
+    }
+
+    // Inicializar al abrir la app
+    actualizarUI();
+  </script>
+</body>
+</html>
