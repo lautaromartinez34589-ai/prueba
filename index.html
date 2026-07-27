@@ -4,16 +4,15 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
   <title>Registro</title>
-  <link rel="manifest" href="manifest.json">
-  <link rel="apple-touch-icon" href="icono.png">
-
   
-  <!-- Configuración para App Nativa en iOS y Android -->
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="mobile-web-app-capable" content="yes">
+  <link rel="manifest" href="manifest.json">
+  <link rel="apple-touch-icon" href="icono.png">
   
   <style>
+    /* TEMA POR DEFECTO (Oscuro Moderno) */
     body {
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
       background-color: #121212;
@@ -25,152 +24,129 @@
       align-items: center;
       min-height: 100vh;
       box-sizing: border-box;
+      transition: all 0.3s ease;
     }
     h1 { font-size: 1.4rem; margin-bottom: 16px; color: #4CAF50; }
     
+    .top-bar {
+      display: flex; width: 100%; max-width: 320px; margin-bottom: 20px; gap: 10px;
+    }
+    .top-bar select {
+      flex-grow: 1; padding: 12px; border-radius: 12px; background: #1e1e1e;
+      color: #4CAF50; border: 1px solid #333; font-size: 1.1rem; font-weight: bold; outline: none;
+    }
+    .btn-icon {
+      background: #333; color: white; border: none; border-radius: 12px;
+      padding: 0 16px; font-size: 1.2rem; cursor: pointer; font-weight: bold;
+    }
+
     .total-box {
-      background-color: #1e1e1e;
-      width: 100%;
-      max-width: 320px;
-      padding: 12px;
-      border-radius: 16px;
-      text-align: center;
-      margin-bottom: 20px;
-      font-size: 1.1rem;
-      border: 1px solid #2a2a2a;
+      background-color: #1e1e1e; width: 100%; max-width: 320px; padding: 12px;
+      border-radius: 16px; text-align: center; margin-bottom: 20px; font-size: 1.1rem; border: 1px solid #2a2a2a;
     }
     .total-box span { font-size: 1.5rem; font-weight: bold; color: #4CAF50; }
 
-    /* Sala Visual */
     .sala-container {
-      width: 100%;
-      max-width: 320px;
-      height: 220px;
-      background-color: #0d0d0d;
-      border-radius: 16px;
-      border: 2px dashed #333;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      margin-bottom: 24px;
-      position: relative;
-      overflow: hidden;
+      width: 100%; max-width: 320px; height: 220px; background-color: #0d0d0d;
+      border-radius: 16px; border: 2px dashed #333; display: flex;
+      justify-content: center; align-items: center; margin-bottom: 24px; overflow: hidden;
     }
     .sala {
-      background: linear-gradient(to bottom, #2a2a2a, #1a1a1a);
-      border: 2px solid #555;
-      border-radius: 12px;
-      display: flex;
-      justify-content: center;
-      align-items: flex-end;
-      padding: 10px;
-      transition: width 0.6s ease, height 0.6s ease;
-      width: 100px; 
-      height: 100px;
+      background: linear-gradient(to bottom, #2a2a2a, #1a1a1a); border: 2px solid #555;
+      border-radius: 12px; display: flex; justify-content: center; align-items: flex-end;
+      padding: 10px; transition: width 0.6s ease, height 0.6s ease; width: 100px; height: 100px;
     }
     .frasco {
-      width: 100%;
-      height: 100%;
-      border: 3px solid rgba(255, 255, 255, 0.4);
-      border-top: 1px solid rgba(255, 255, 255, 0.1);
-      border-bottom-left-radius: 15px;
-      border-bottom-right-radius: 15px;
-      background: rgba(255, 255, 255, 0.05);
-      display: flex;
-      flex-wrap: wrap-reverse;
-      align-content: flex-start;
-      justify-content: center;
-      padding: 5px;
-      overflow: hidden;
-      box-shadow: inset 0 0 15px rgba(255,255,255,0.1);
+      width: 100%; height: 100%; border: 3px solid rgba(255,255,255,0.4);
+      border-top: 1px solid rgba(255,255,255,0.1); border-bottom-left-radius: 15px;
+      border-bottom-right-radius: 15px; background: rgba(255,255,255,0.05);
+      display: flex; flex-wrap: wrap-reverse; align-content: flex-start; justify-content: center;
+      padding: 5px; overflow: hidden; box-shadow: inset 0 0 15px rgba(255,255,255,0.1);
     }
-    .cogollo {
-      font-size: 20px;
-      margin: 1px;
-      animation: pop 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    }
-    @keyframes pop {
-      0% { transform: scale(0) translateY(-20px); opacity: 0; }
-      100% { transform: scale(1) translateY(0); opacity: 1; }
-    }
+    .cogollo { font-size: 20px; margin: 1px; animation: pop 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+    @keyframes pop { 0% { transform: scale(0) translateY(-20px); opacity: 0; } 100% { transform: scale(1) translateY(0); opacity: 1; } }
 
-    /* Botones */
     .main-btn {
-      background: linear-gradient(135deg, #4CAF50, #2E7D32);
-      color: white;
-      border: none;
-      width: 100%;
-      max-width: 320px;
-      padding: 20px;
-      font-size: 1.6rem;
-      font-weight: bold;
-      border-radius: 20px;
-      cursor: pointer;
-      box-shadow: 0 6px 20px rgba(76, 175, 80, 0.3);
-      margin-bottom: 20px;
-      transition: transform 0.1s;
+      background: linear-gradient(135deg, #4CAF50, #2E7D32); color: white; border: none;
+      width: 100%; max-width: 320px; padding: 20px; font-size: 1.6rem; font-weight: bold;
+      border-radius: 20px; cursor: pointer; box-shadow: 0 6px 20px rgba(76,175,80,0.3); margin-bottom: 20px;
     }
     .main-btn:active { transform: scale(0.96); }
 
-    .subtitle { font-size: 0.85rem; color: #888; margin-bottom: 10px; }
-    .grid-options {
-      display: flex; gap: 10px; flex-wrap: wrap; justify-content: center;
-      max-width: 320px; margin-bottom: 24px;
-    }
+    .grid-options { display: flex; gap: 10px; flex-wrap: wrap; justify-content: center; max-width: 320px; margin-bottom: 24px; }
     .option-btn {
-      background-color: #1e1e1e; color: #4CAF50; border: 1px solid #333;
-      padding: 10px 16px; font-size: 0.9rem; font-weight: 600;
-      border-radius: 12px; cursor: pointer;
-    }
-    .option-btn:active { background-color: #333; }
-
-    /* Historial */
-    .history-section { width: 100%; max-width: 320px; }
-    .history-header {
-      display: flex; justify-content: space-between; align-items: center;
-      border-bottom: 1px solid #2a2a2a; padding-bottom: 8px;
-      margin-bottom: 12px; font-size: 0.95rem; color: #aaa;
-    }
-    .history-list {
-      list-style: none; padding: 0; margin: 0;
-      max-height: 150px; overflow-y: auto;
-    }
-    .history-item {
-      display: flex; justify-content: space-between; padding: 8px 0;
-      border-bottom: 1px solid #1a1a1a; font-size: 0.9rem;
-    }
-    .btn-clear {
-      background: none; border: none; color: #ff5252;
-      font-size: 0.8rem; cursor: pointer;
+      background-color: #1e1e1e; color: #4CAF50; border: 1px solid #333; padding: 10px 16px;
+      font-size: 0.9rem; font-weight: 600; border-radius: 12px; cursor: pointer;
     }
 
-    /* Modal de Instalación */
-    .modal-overlay {
-      position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-      background: rgba(0,0,0,0.85); display: none; 
-      justify-content: center; align-items: center; z-index: 1000;
-      backdrop-filter: blur(4px);
+    .list-section { width: 100%; max-width: 320px; margin-bottom: 24px; }
+    .list-header {
+      display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #2a2a2a;
+      padding-bottom: 8px; margin-bottom: 12px; font-size: 0.95rem; color: #aaa;
     }
-    .modal-content {
-      background: #1e1e1e; padding: 24px; border-radius: 20px;
-      max-width: 280px; text-align: center; border: 1px solid #333;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    .data-list { list-style: none; padding: 0; margin: 0; max-height: 150px; overflow-y: auto; }
+    .ranking-item {
+      display: flex; justify-content: space-between; align-items: center; padding: 12px 10px;
+      border-bottom: 1px solid #1a1a1a; background: #191919; border-radius: 8px; margin-bottom: 6px;
     }
-    .modal-content h2 { color: #4CAF50; margin-top: 0; font-size: 1.3rem; }
-    .modal-content p { line-height: 1.6; font-size: 0.95rem; text-align: left; color: #ddd; }
-    .modal-btn {
-      margin-top: 20px; background: #333; color: white; border: none;
-      padding: 12px 24px; border-radius: 12px; font-weight: bold;
-      cursor: pointer; width: 100%;
+    .ranking-info { display: flex; flex-direction: column; }
+    .ranking-name { font-size: 1.1rem; font-weight: bold; }
+    .ranking-title { font-size: 0.75rem; color: #888; text-transform: uppercase; letter-spacing: 1px; margin-top: 2px; }
+    .ranking-score { color: #4CAF50; font-weight: bold; font-size: 1.1rem; }
+    .btn-clear { background: none; border: none; color: #ff5252; font-size: 0.8rem; cursor: pointer; }
+
+    /* =========================================
+       TEMA Y2K / BLING ERA / CAMARA VIEJA
+       ========================================= */
+    body.y2k-theme {
+      background-color: #c0c0c0;
+      color: #000;
+      font-family: "Courier New", Courier, monospace;
     }
+    body.y2k-theme h1 { color: #000080; text-shadow: 2px 2px 0px #fff; font-weight: 900; }
+    body.y2k-theme .top-bar select, body.y2k-theme .btn-icon {
+      background: #dfdfdf; color: #000; border: 2px inset #fff; border-radius: 0; font-family: "Courier New", Courier, monospace; font-weight: bold;
+    }
+    body.y2k-theme .total-box {
+      background: #fff; color: #000; border: 3px ridge #fff; border-radius: 0; box-shadow: 4px 4px 0px #000;
+    }
+    body.y2k-theme .total-box span { color: #ff00ff; }
+    body.y2k-theme .sala-container {
+      background-color: #000; border: 4px ridge #888; border-radius: 0; box-shadow: inset 0 0 10px #000;
+    }
+    body.y2k-theme .sala { border: 2px solid #00ff00; border-radius: 0; background: #111; }
+    body.y2k-theme .frasco { border: 2px solid #00ff00; border-radius: 0; box-shadow: none; }
+    body.y2k-theme .main-btn {
+      background: linear-gradient(to bottom, #e6e6e6, #999999); color: #000;
+      border: 4px outset #fff; border-radius: 0; box-shadow: 5px 5px 0px #000; font-family: "Impact", sans-serif; letter-spacing: 2px;
+    }
+    body.y2k-theme .main-btn:active { border: 4px inset #fff; transform: none; box-shadow: 2px 2px 0px #000; }
+    body.y2k-theme .option-btn {
+      background: #dfdfdf; color: #000; border: 2px outset #fff; border-radius: 0; font-family: "Courier New", Courier, monospace; font-weight: bold;
+    }
+    body.y2k-theme .option-btn:active { border: 2px inset #fff; }
+    body.y2k-theme .list-header { color: #000; border-bottom: 2px dashed #888; }
+    body.y2k-theme .ranking-item {
+      background: #fff; border: 2px ridge #ddd; border-radius: 0; box-shadow: 2px 2px 0px #888;
+    }
+    body.y2k-theme .ranking-title { color: #000080; font-weight: bold; }
+    body.y2k-theme .ranking-score { color: #ff00ff; }
+    body.y2k-theme .data-item { border-bottom: 1px dashed #888; }
+    body.y2k-theme .data-item span { color: #555 !important; }
   </style>
 </head>
 <body>
 
   <h1>Anotador</h1>
 
+  <div class="top-bar">
+    <select id="amigo-select" onchange="actualizarUI()"></select>
+    <button class="btn-icon" onclick="agregarAmigo()">+</button>
+    <button class="btn-icon" onclick="toggleY2K()">💿</button>
+  </div>
+
   <div class="total-box">
-    Total acumulado: <br><span id="total-grams">0</span> g
+    Total personal: <br><span id="total-grams">0</span> g
   </div>
 
   <div class="sala-container">
@@ -181,7 +157,6 @@
 
   <button class="main-btn" onclick="registrar(1)">+ 1 g</button>
 
-  <div class="subtitle">Otras cantidades:</div>
   <div class="grid-options">
     <button class="option-btn" onclick="registrar(0.5)">+ 0.5g</button>
     <button class="option-btn" onclick="registrar(2)">+ 2g</button>
@@ -190,79 +165,110 @@
     <button class="option-btn" onclick="registrar(5)">+ 5g</button>
   </div>
 
-  <div class="history-section">
-    <div class="history-header">
-      <span>Historial</span>
-      <button class="btn-clear" onclick="limpiarHistorial()">Borrar todo</button>
+  <!-- Ranking General -->
+  <div class="list-section">
+    <div class="list-header">
+      <span style="font-weight:bold;">🏆 Ranking de la banda</span>
     </div>
-    <ul class="history-list" id="history-list"></ul>
+    <ul class="data-list" id="ranking-list" style="max-height: none;"></ul>
   </div>
 
-  <!-- Cartel de Instalación -->
-  <div id="install-modal" class="modal-overlay">
-    <div class="modal-content">
-      <h2>¡Convertilo en App!</h2>
-      <p id="install-instructions"></p>
-      <button class="modal-btn" onclick="cerrarModal()">Entendido</button>
+  <!-- Historial Individual -->
+  <div class="list-section">
+    <div class="list-header">
+      <span>Historial personal</span>
+      <button class="btn-clear" onclick="limpiarHistorial()">Borrar todo</button>
     </div>
+    <ul class="data-list" id="history-list"></ul>
   </div>
 
   <script>
-       if ('serviceWorker' in navigator) {
+    if ('serviceWorker' in navigator) {
       navigator.serviceWorker.register('sw.js');
     }
 
-    // --- LÓGICA DEL CARTEL DE INSTALACIÓN ---
-    function revisarInstalacion() {
-      // Verifica si la app se está abriendo desde la pantalla de inicio
-      const esStandalone = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true;
-      
-      if (!esStandalone) {
-        const userAgent = window.navigator.userAgent.toLowerCase();
-        const esIOS = /iphone|ipad|ipod/.test(userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
-        const esAndroid = /android/.test(userAgent);
-        
-        const modal = document.getElementById('install-modal');
-        const instrucciones = document.getElementById('install-instructions');
-        
-        if (esIOS) {
-          instrucciones.innerHTML = "Para instalarla en tu iPhone:<br><br>1️⃣ Tocá el botón <strong>Compartir</strong> abajo al centro (el cuadrado con la flecha hacia arriba).<br><br>2️⃣ Buscá la opción <strong>Agregar a la pantalla de inicio</strong>.<br><br>3️⃣ Tocá <strong>Agregar</strong>.";
-          modal.style.display = 'flex';
-        } else if (esAndroid) {
-          instrucciones.innerHTML = "Para instalarla en tu Android:<br><br>1️⃣ Tocá los <strong>tres puntos</strong> arriba a la derecha (menú).<br><br>2️⃣ Elegí <strong>Agregar a la pantalla principal</strong>.<br><br>3️⃣ Tocá <strong>Agregar</strong>.";
-          modal.style.display = 'flex';
+    let registros = JSON.parse(localStorage.getItem('registros_gramos')) || [];
+    let amigos = JSON.parse(localStorage.getItem('lista_amigos')) || ['Pedro'];
+    let y2kActivado = localStorage.getItem('y2k_theme') === 'true';
+
+    // Aplicar tema al iniciar
+    if (y2kActivado) document.body.classList.add('y2k-theme');
+
+    function toggleY2K() {
+      document.body.classList.toggle('y2k-theme');
+      localStorage.setItem('y2k_theme', document.body.classList.contains('y2k-theme'));
+    }
+
+    function inicializarSelect() {
+      const select = document.getElementById('amigo-select');
+      const valorActual = select.value;
+      select.innerHTML = '';
+      amigos.forEach(amigo => {
+        const option = document.createElement('option');
+        option.value = amigo; option.textContent = amigo;
+        select.appendChild(option);
+      });
+      if (valorActual && amigos.includes(valorActual)) select.value = valorActual;
+    }
+
+    function agregarAmigo() {
+      const nombre = prompt('¿Cómo se llama tu amigo?');
+      if (nombre && nombre.trim() !== '') {
+        const nombreLimpio = nombre.trim();
+        if (!amigos.includes(nombreLimpio)) {
+          amigos.push(nombreLimpio);
+          localStorage.setItem('lista_amigos', JSON.stringify(amigos));
+          inicializarSelect();
+          document.getElementById('amigo-select').value = nombreLimpio;
+          actualizarUI();
+        } else {
+          alert('Ese nombre ya existe.');
         }
       }
     }
 
-    function cerrarModal() {
-      document.getElementById('install-modal').style.display = 'none';
+    // SISTEMA DE LOGROS Y TÍTULOS
+    function obtenerTitulo(gramos) {
+      if (gramos >= 100) return '👑 Bling King';
+      if (gramos >= 50) return '💎 Old Brother';
+      if (gramos >= 20) return '🔥 OG';
+      if (gramos >= 5) return '🛠️ Constructor';
+      return '🌱 Iniciado';
     }
 
-    // --- LÓGICA DEL ANOTADOR ---
-    let registros = JSON.parse(localStorage.getItem('registros_gramos')) || [];
-
     function actualizarUI() {
+      const amigoSeleccionado = document.getElementById('amigo-select').value;
       const historyList = document.getElementById('history-list');
+      const rankingList = document.getElementById('ranking-list');
       const totalSpan = document.getElementById('total-grams');
       const frasco = document.getElementById('frasco');
       const sala = document.getElementById('sala');
       
+      let totalesPorAmigo = {};
+      amigos.forEach(a => totalesPorAmigo[a] = 0);
+
       historyList.innerHTML = '';
-      let total = 0;
-      
+      rankingList.innerHTML = '';
+      let totalPersonal = 0;
+
       registros.forEach((reg) => {
-        total += reg.gramos;
-        const li = document.createElement('li');
-        li.className = 'history-item';
-        li.innerHTML = `<span style="color:#aaa">${reg.fecha}</span> <strong>+${reg.gramos} g</strong>`;
-        historyList.appendChild(li);
+        const nombreAmigo = reg.amigo || 'Pedro';
+        if (totalesPorAmigo[nombreAmigo] === undefined) totalesPorAmigo[nombreAmigo] = 0;
+        totalesPorAmigo[nombreAmigo] += reg.gramos;
+
+        if (nombreAmigo === amigoSeleccionado) {
+          totalPersonal += reg.gramos;
+          const li = document.createElement('li');
+          li.className = 'data-item';
+          li.innerHTML = `<span style="color:#aaa">${reg.fecha}</span> <strong>+${reg.gramos} g</strong>`;
+          historyList.appendChild(li);
+        }
       });
 
-      totalSpan.textContent = total.toFixed(1);
+      totalSpan.textContent = totalPersonal.toFixed(1);
 
-      let nuevaAnchura = 100 + (total * 6);
-      let nuevaAltura = 100 + (total * 5);
+      let nuevaAnchura = 100 + (totalPersonal * 6);
+      let nuevaAltura = 100 + (totalPersonal * 5);
       if (nuevaAnchura > 280) nuevaAnchura = 280;
       if (nuevaAltura > 200) nuevaAltura = 200;
 
@@ -270,37 +276,61 @@
       sala.style.height = nuevaAltura + 'px';
 
       frasco.innerHTML = '';
-      let cantidadCogollos = Math.floor(total);
-      
+      let cantidadCogollos = Math.floor(totalPersonal);
       for (let i = 0; i < cantidadCogollos; i++) {
         const cogollo = document.createElement('span');
         cogollo.className = 'cogollo';
         cogollo.textContent = '🥦';
         frasco.appendChild(cogollo);
       }
+
+      // Ranking con Títulos
+      const rankingOrdenado = Object.keys(totalesPorAmigo).sort((a, b) => totalesPorAmigo[b] - totalesPorAmigo[a]);
+      
+      rankingOrdenado.forEach((amigo, index) => {
+        const li = document.createElement('li');
+        li.className = 'ranking-item';
+        
+        let medalla = '';
+        if(index === 0) medalla = '🥇';
+        else if(index === 1) medalla = '🥈';
+        else if(index === 2) medalla = '🥉';
+        else medalla = '🔹';
+
+        const titulo = obtenerTitulo(totalesPorAmigo[amigo]);
+        
+        li.innerHTML = `
+          <div class="ranking-info">
+            <span class="ranking-name">${medalla} ${amigo}</span>
+            <span class="ranking-title">${titulo}</span>
+          </div>
+          <span class="ranking-score">${totalesPorAmigo[amigo].toFixed(1)} g</span>
+        `;
+        rankingList.appendChild(li);
+      });
     }
 
     function registrar(gramos) {
+      const amigoActual = document.getElementById('amigo-select').value;
       const ahora = new Date();
       const fechaStr = ahora.toLocaleDateString([], {day: '2-digit', month: '2-digit'}) + ' ' + 
                        ahora.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
       
-      registros.unshift({ fecha: fechaStr, gramos: gramos });
+      registros.unshift({ fecha: fechaStr, gramos: gramos, amigo: amigoActual });
       localStorage.setItem('registros_gramos', JSON.stringify(registros));
       actualizarUI();
     }
 
     function limpiarHistorial() {
-      if (confirm('¿Seguro que querés borrar el historial completo? Se vaciará el frasco.')) {
+      if (confirm('¿Seguro que querés borrar TODO el historial?')) {
         registros = [];
         localStorage.removeItem('registros_gramos');
         actualizarUI();
       }
     }
 
-    // Inicializar todo al abrir
+    inicializarSelect();
     actualizarUI();
-    revisarInstalacion();
   </script>
 </body>
 </html>
