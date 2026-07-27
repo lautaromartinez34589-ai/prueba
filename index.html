@@ -4,8 +4,12 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
   <title>Registro</title>
+  
+  <!-- Configuración para App Nativa en iOS y Android -->
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="mobile-web-app-capable" content="yes">
+  
   <style>
     body {
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
@@ -34,7 +38,7 @@
     }
     .total-box span { font-size: 1.5rem; font-weight: bold; color: #4CAF50; }
 
-    /* --- NUEVA SECCIÓN VISUAL --- */
+    /* Sala Visual */
     .sala-container {
       width: 100%;
       max-width: 320px;
@@ -49,7 +53,6 @@
       position: relative;
       overflow: hidden;
     }
-
     .sala {
       background: linear-gradient(to bottom, #2a2a2a, #1a1a1a);
       border: 2px solid #555;
@@ -59,11 +62,9 @@
       align-items: flex-end;
       padding: 10px;
       transition: width 0.6s ease, height 0.6s ease;
-      /* Tamaños base */
       width: 100px; 
       height: 100px;
     }
-
     .frasco {
       width: 100%;
       height: 100%;
@@ -73,26 +74,24 @@
       border-bottom-right-radius: 15px;
       background: rgba(255, 255, 255, 0.05);
       display: flex;
-      flex-wrap: wrap-reverse; /* Para que se apilen desde abajo */
+      flex-wrap: wrap-reverse;
       align-content: flex-start;
       justify-content: center;
       padding: 5px;
       overflow: hidden;
       box-shadow: inset 0 0 15px rgba(255,255,255,0.1);
     }
-
     .cogollo {
       font-size: 20px;
       margin: 1px;
       animation: pop 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     }
-
     @keyframes pop {
       0% { transform: scale(0) translateY(-20px); opacity: 0; }
       100% { transform: scale(1) translateY(0); opacity: 1; }
     }
-    /* ---------------------------- */
 
+    /* Botones */
     .main-btn {
       background: linear-gradient(135deg, #4CAF50, #2E7D32);
       color: white;
@@ -111,54 +110,55 @@
     .main-btn:active { transform: scale(0.96); }
 
     .subtitle { font-size: 0.85rem; color: #888; margin-bottom: 10px; }
-
     .grid-options {
-      display: flex;
-      gap: 10px;
-      flex-wrap: wrap;
-      justify-content: center;
-      max-width: 320px;
-      margin-bottom: 24px;
+      display: flex; gap: 10px; flex-wrap: wrap; justify-content: center;
+      max-width: 320px; margin-bottom: 24px;
     }
     .option-btn {
-      background-color: #1e1e1e;
-      color: #4CAF50;
-      border: 1px solid #333;
-      padding: 10px 16px;
-      font-size: 0.9rem;
-      font-weight: 600;
-      border-radius: 12px;
-      cursor: pointer;
+      background-color: #1e1e1e; color: #4CAF50; border: 1px solid #333;
+      padding: 10px 16px; font-size: 0.9rem; font-weight: 600;
+      border-radius: 12px; cursor: pointer;
     }
     .option-btn:active { background-color: #333; }
 
+    /* Historial */
     .history-section { width: 100%; max-width: 320px; }
     .history-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      border-bottom: 1px solid #2a2a2a;
-      padding-bottom: 8px;
-      margin-bottom: 12px;
-      font-size: 0.95rem;
-      color: #aaa;
+      display: flex; justify-content: space-between; align-items: center;
+      border-bottom: 1px solid #2a2a2a; padding-bottom: 8px;
+      margin-bottom: 12px; font-size: 0.95rem; color: #aaa;
     }
     .history-list {
-      list-style: none;
-      padding: 0; margin: 0;
-      max-height: 150px;
-      overflow-y: auto;
+      list-style: none; padding: 0; margin: 0;
+      max-height: 150px; overflow-y: auto;
     }
     .history-item {
-      display: flex;
-      justify-content: space-between;
-      padding: 8px 0;
-      border-bottom: 1px solid #1a1a1a;
-      font-size: 0.9rem;
+      display: flex; justify-content: space-between; padding: 8px 0;
+      border-bottom: 1px solid #1a1a1a; font-size: 0.9rem;
     }
     .btn-clear {
-      background: none; border: none;
-      color: #ff5252; font-size: 0.8rem; cursor: pointer;
+      background: none; border: none; color: #ff5252;
+      font-size: 0.8rem; cursor: pointer;
+    }
+
+    /* Modal de Instalación */
+    .modal-overlay {
+      position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+      background: rgba(0,0,0,0.85); display: none; 
+      justify-content: center; align-items: center; z-index: 1000;
+      backdrop-filter: blur(4px);
+    }
+    .modal-content {
+      background: #1e1e1e; padding: 24px; border-radius: 20px;
+      max-width: 280px; text-align: center; border: 1px solid #333;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    }
+    .modal-content h2 { color: #4CAF50; margin-top: 0; font-size: 1.3rem; }
+    .modal-content p { line-height: 1.6; font-size: 0.95rem; text-align: left; color: #ddd; }
+    .modal-btn {
+      margin-top: 20px; background: #333; color: white; border: none;
+      padding: 12px 24px; border-radius: 12px; font-weight: bold;
+      cursor: pointer; width: 100%;
     }
   </style>
 </head>
@@ -170,12 +170,9 @@
     Total acumulado: <br><span id="total-grams">0</span> g
   </div>
 
-  <!-- Contenedor de la Sala y el Frasco -->
   <div class="sala-container">
     <div class="sala" id="sala">
-      <div class="frasco" id="frasco">
-        <!-- Los cogollos se agregan acá por código -->
-      </div>
+      <div class="frasco" id="frasco"></div>
     </div>
   </div>
 
@@ -198,7 +195,44 @@
     <ul class="history-list" id="history-list"></ul>
   </div>
 
+  <!-- Cartel de Instalación -->
+  <div id="install-modal" class="modal-overlay">
+    <div class="modal-content">
+      <h2>¡Convertilo en App!</h2>
+      <p id="install-instructions"></p>
+      <button class="modal-btn" onclick="cerrarModal()">Entendido</button>
+    </div>
+  </div>
+
   <script>
+    // --- LÓGICA DEL CARTEL DE INSTALACIÓN ---
+    function revisarInstalacion() {
+      // Verifica si la app se está abriendo desde la pantalla de inicio
+      const esStandalone = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true;
+      
+      if (!esStandalone) {
+        const userAgent = window.navigator.userAgent.toLowerCase();
+        const esIOS = /iphone|ipad|ipod/.test(userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+        const esAndroid = /android/.test(userAgent);
+        
+        const modal = document.getElementById('install-modal');
+        const instrucciones = document.getElementById('install-instructions');
+        
+        if (esIOS) {
+          instrucciones.innerHTML = "Para instalarla en tu iPhone:<br><br>1️⃣ Tocá el botón <strong>Compartir</strong> abajo al centro (el cuadrado con la flecha hacia arriba).<br><br>2️⃣ Buscá la opción <strong>Agregar a la pantalla de inicio</strong>.<br><br>3️⃣ Tocá <strong>Agregar</strong>.";
+          modal.style.display = 'flex';
+        } else if (esAndroid) {
+          instrucciones.innerHTML = "Para instalarla en tu Android:<br><br>1️⃣ Tocá los <strong>tres puntos</strong> arriba a la derecha (menú).<br><br>2️⃣ Elegí <strong>Agregar a la pantalla principal</strong>.<br><br>3️⃣ Tocá <strong>Agregar</strong>.";
+          modal.style.display = 'flex';
+        }
+      }
+    }
+
+    function cerrarModal() {
+      document.getElementById('install-modal').style.display = 'none';
+    }
+
+    // --- LÓGICA DEL ANOTADOR ---
     let registros = JSON.parse(localStorage.getItem('registros_gramos')) || [];
 
     function actualizarUI() {
@@ -208,8 +242,8 @@
       const sala = document.getElementById('sala');
       
       historyList.innerHTML = '';
-      
       let total = 0;
+      
       registros.forEach((reg) => {
         total += reg.gramos;
         const li = document.createElement('li');
@@ -220,24 +254,17 @@
 
       totalSpan.textContent = total.toFixed(1);
 
-      // 1. Agrandar la sala en base al total
-      // Empieza en 100x100. Sumamos 6px por cada gramo.
       let nuevaAnchura = 100 + (total * 6);
       let nuevaAltura = 100 + (total * 5);
-      
-      // Ponemos un límite para que no se salga del contenedor de la pantalla
       if (nuevaAnchura > 280) nuevaAnchura = 280;
       if (nuevaAltura > 200) nuevaAltura = 200;
 
       sala.style.width = nuevaAnchura + 'px';
       sala.style.height = nuevaAltura + 'px';
 
-      // 2. Llenar el frasco con cogollos (1 🥦 por cada gramo entero)
       frasco.innerHTML = '';
       let cantidadCogollos = Math.floor(total);
       
-      // Si sumaste 0.5 pero todavía no llega a 1, no mostramos nada entero, 
-      // pero a partir de 1 empieza a sumar de a 1 emoji.
       for (let i = 0; i < cantidadCogollos; i++) {
         const cogollo = document.createElement('span');
         cogollo.className = 'cogollo';
@@ -264,8 +291,9 @@
       }
     }
 
-    // Inicializar al abrir la app
+    // Inicializar todo al abrir
     actualizarUI();
+    revisarInstalacion();
   </script>
 </body>
 </html>
