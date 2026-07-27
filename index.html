@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
   <title>Registro</title>
+  <link rel="manifest" href="manifest.json">
   
   <!-- Configuración para App Nativa en iOS y Android -->
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -205,6 +206,10 @@
   </div>
 
   <script>
+       if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('sw.js');
+    }
+
     // --- LÓGICA DEL CARTEL DE INSTALACIÓN ---
     function revisarInstalacion() {
       // Verifica si la app se está abriendo desde la pantalla de inicio
